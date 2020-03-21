@@ -3,6 +3,11 @@ package ru.job4j.tracker.oop;
 public class Predator extends Animal {
     public Predator() {
         super();
-        System.out.println("Load Predator");
+        System.out.println("конструктор Predator без параметров");
+    }
+
+    public Predator(String name) {
+        super(name);
+        System.out.println("конструтор Predator с параметром name");
     }
 }
