@@ -1,23 +1,50 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Tracker {
     private final Item[] items = new Item[100];
-    private int ids = 1;
-    private int size = 0;
+    private int position = 0;
 
     public Item add(Item item) {
         item.setId(generateId());
-        items[size++] = item;
+        items[position++] = item;
         return item;
     }
 
+    public Item[] findAll() {
+        Item[] itemsWithoutNull = new Item[position];
+        int size = 0;
+        for (int i = 0; i < position; i++) {
+            itemsWithoutNull[size] = items[i];
+            size++;
+        }
+        itemsWithoutNull = Arrays.copyOf(itemsWithoutNull, size);
+        return itemsWithoutNull;
+    }
+
+    public Item[] findByName(String key) {
+        Item[] itemsMatchingByName = new Item[position];
+        int size = 0;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getName().equals(key)) {
+                itemsMatchingByName[size] = items[i];
+                size++;
+            }
+        }
+        itemsMatchingByName = Arrays.copyOf(itemsMatchingByName, size);
+        return itemsMatchingByName;
+    }
+
     private String generateId() {
-        return String.valueOf(ids++);
+        Random rm = new Random();
+        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 
     public Item findById(String id) {
         Item rsl = null;
-        for (int index = 0; index < size; index++) {
+        for (int index = 0; index < items.length; index++) {
             Item item = items[index];
             if (item.getId().equals(id)) {
                 rsl = item;
