@@ -64,4 +64,12 @@ public class Tracker {
         }
         return rsl;
     }
+
+    public void delete(String id) {
+        int index = indexOf(id);
+        int size = position - index;
+        System.arraycopy(items, index + 1, items, index, size);
+        items[position - 1] = null;
+        position--;
+    }
 }
