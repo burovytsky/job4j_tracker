@@ -1,4 +1,4 @@
-package ru.job4j.tracker.pojo;
+package ru.job4j.tracker.io;
 
 import java.util.Random;
 import java.util.Scanner;
