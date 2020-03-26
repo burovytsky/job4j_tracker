@@ -43,7 +43,7 @@ public class StartUI {
         String id = input.askStr("Enter id to search: ");
         Item desiredObject = tracker.findById(id);
         if (desiredObject != null) {
-            System.out.println(tracker.findById(id).getName());
+            System.out.println(desiredObject.getName());
         } else {
             System.out.println("Item not found");
         }
