@@ -6,24 +6,17 @@ public class Matches {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int matchCounter = 11;
+        int player = 1;
         System.out.println("Нужно вытянуть от 1 до 3 спичек. Игра началась");
-        while (true) {
-            System.out.println("Первый игрок тянет спички");
-            int firstPlayerMove = Integer.parseInt(scanner.nextLine());
-            matchCounter -= firstPlayerMove;
-            System.out.println("Игрок один выятнул " + firstPlayerMove + " спичек. Осталось " + matchCounter + " спичек");
+        while (matchCounter > 0) {
+            System.out.println("Игрок " + player + " тянет спички");
+            int playerMove = Integer.parseInt(scanner.nextLine());
+            matchCounter -= playerMove;
+            System.out.println("Игрок " + player + " выятнул " + playerMove + " спичек. Осталось " + matchCounter + " спичек");
             if (matchCounter <= 0) {
-                System.out.println("Первый Игрок победил");
-                break;
+                System.out.println("Игрок " + player + " победил");
             }
-            System.out.println("Второй Игрок тянет спички");
-            int secondPlayerMove = Integer.parseInt(scanner.nextLine());
-            matchCounter -= secondPlayerMove;
-            System.out.println("Игрок два выятнул " + secondPlayerMove + " спичек. Осталось " + matchCounter + " спичек");
-            if (matchCounter <= 0) {
-                System.out.println("Второй Игрок победил");
-                break;
-            }
+            player = (player == 1) ? 2 : 1;
         }
     }
 }
