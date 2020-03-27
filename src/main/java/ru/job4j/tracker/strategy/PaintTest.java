@@ -13,8 +13,8 @@ import static org.junit.Assert.assertThat;
 import java.util.StringJoiner;
 
 public class PaintTest {
-    PrintStream stdout = System.out;
     ByteArrayOutputStream out = new ByteArrayOutputStream();
+    PrintStream stdout = System.out;
 
     @Before
     public void loadOutput() {
@@ -53,7 +53,6 @@ public class PaintTest {
                         .add("  ***")
                         .add(" *****")
                         .add("*******")
-                        .add(System.lineSeparator())
                         .toString())
         );
     }
