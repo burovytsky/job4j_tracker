@@ -1,6 +1,10 @@
 package ru.job4j.tracker.ex;
 
 public class ElementNotFoundException extends Exception {
+    public ElementNotFoundException(String message) {
+        super(message);
+    }
+
     public static void main(String[] args) {
         String[] values = new String[]{"element1"};
         try {
@@ -16,7 +20,7 @@ public class ElementNotFoundException extends Exception {
             if (values[i].equals(key)) {
                 rsl = i;
             } else {
-                throw new ElementNotFoundException();
+                throw new ElementNotFoundException("Element not found");
             }
         }
         return rsl;
