@@ -19,9 +19,10 @@ public class ElementNotFoundException extends Exception {
         for (int i = 0; i < values.length; i++) {
             if (values[i].equals(key)) {
                 rsl = i;
-            } else {
-                throw new ElementNotFoundException("Element not found");
             }
+        }
+        if (rsl == -1) {
+            throw new ElementNotFoundException("Element not found");
         }
         return rsl;
     }
