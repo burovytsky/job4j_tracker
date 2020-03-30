@@ -4,7 +4,8 @@ package ru.job4j.tracker;
 public class StartUI {
 
     public static void main(String[] args) {
-        Input validateInput = new ValidateInput();
+        Input input = new ConsoleInput();
+        Input validateInput = new ValidateInput(input);
         Tracker tracker = new Tracker();
         UserAction[] actions = {new CreateAction(), new ShowAllAction(),
                 new EditAction(), new DeleteAction(), new FindByIdAction(),
