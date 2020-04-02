@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -14,6 +16,7 @@ public class StartUITest {
 
     @Test
     public void whenPrtMenu() {
+        List<UserAction> actions = new ArrayList<>();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
@@ -21,7 +24,8 @@ public class StartUITest {
                 new String[]{"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[]{action});
+        actions.add(action);
+        new StartUI().init(input, new Tracker(), actions);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")
@@ -36,7 +40,7 @@ public class StartUITest {
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
         new CreateAction().execute(input, tracker);
-        Item created = tracker.findAll()[0];
+        Item created = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }

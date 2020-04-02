@@ -2,6 +2,10 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
@@ -9,11 +13,13 @@ import static org.junit.Assert.assertThat;
 public class TrackerTest {
     @Test
     public void whenExit() {
+        List<UserAction> actions = new ArrayList<>();
         StubInput input = new StubInput(
                 new String[]{"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[]{action});
+        actions.add(action);
+        new StartUI().init(input, new Tracker(), actions);
         assertThat(action.isCall(), is(true));
     }
 
@@ -35,9 +41,8 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = tracker.findAll();
-        Item[] expected = new Item[]{
-                item, item1, item2};
+        List<Item> result = tracker.findAll();
+        List<Item> expected = Arrays.asList(item, item1, item2);
         assertThat(result, is(expected));
     }
 
@@ -61,9 +66,9 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Item[] result = tracker.findByName("test1");
-        Item[] expected = new Item[]{
-                item1, item3};
+
+        List<Item> result = tracker.findByName("test1");
+        List<Item> expected = Arrays.asList(item1, item3);
         assertThat(result, is(expected));
     }
 

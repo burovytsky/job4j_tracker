@@ -1,32 +1,42 @@
 package ru.job4j.tracker;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StartUI {
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Input validateInput = new ValidateInput(input);
         Tracker tracker = new Tracker();
-        UserAction[] actions = {new CreateAction(), new ShowAllAction(),
-                new EditAction(), new DeleteAction(), new FindByIdAction(),
-                new FindByNameAction(), new ExitAction()};
+        List<UserAction> actions = new ArrayList<>();
+        actions.add(new CreateAction());
+        actions.add(new ShowAllAction());
+        actions.add(new EditAction());
+        actions.add(new DeleteAction());
+        actions.add(new FindByIdAction());
+        actions.add(new FindByNameAction());
+        actions.add(new ExitAction());
         new StartUI().init(validateInput, tracker, actions);
     }
 
-    public void init(Input input, Tracker tracker, UserAction[] actions) {
+    public void init(Input input, Tracker tracker, List<UserAction> actions) {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
-            int select = input.askInt("Select ", actions.length);
-            UserAction action = actions[select];
+            int select = input.askInt("Select ", actions.size());
+            UserAction action = actions.get(select);
             run = action.execute(input, tracker);
         }
     }
 
-    private void showMenu(UserAction[] actions) {
+    private void showMenu(List<UserAction> actions) {
         System.out.println("Menu.");
-        for (int i = 0; i < actions.length; i++) {
-            System.out.println(i + ". " + actions[i].name());
+        int i = 0;
+        for (UserAction userAction: actions) {
+            System.out.println(i + ". " + userAction.name());
+            i++;
         }
     }
 }
