@@ -34,12 +34,9 @@ public class Tracker {
     }
 
     public Item findById(String id) {
-        Item rsl = null;
-        for (Item item : items) {
-            if (item.getId().equals(id)) {
-                rsl = item;
-            }
-        }
+        Item rsl;
+        int index = indexOfElement(id);
+        rsl = items.get(index);
         return rsl;
     }
 
@@ -66,9 +63,9 @@ public class Tracker {
 
     private int indexOfElement(String id) {
         int rsl = -1;
-        for (Item item : items) {
-            if (item.getId().equals(id)) {
-                rsl = items.indexOf(item);
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
+                rsl = i;
             }
         }
         return rsl;
