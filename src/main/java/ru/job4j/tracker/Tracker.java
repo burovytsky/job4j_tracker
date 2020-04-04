@@ -34,9 +34,11 @@ public class Tracker {
     }
 
     public Item findById(String id) {
-        Item rsl;
+        Item rsl = null;
         int index = indexOfElement(id);
-        rsl = items.get(index);
+        if (index != -1) {
+            rsl = items.get(index);
+        }
         return rsl;
     }
 
@@ -66,6 +68,7 @@ public class Tracker {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(id)) {
                 rsl = i;
+                break;
             }
         }
         return rsl;
