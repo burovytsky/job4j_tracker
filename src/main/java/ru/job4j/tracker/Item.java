@@ -1,5 +1,9 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.tasks.collections.Citizen;
+
+import java.util.Objects;
+
 public class Item {
 
     private String id;
@@ -23,5 +27,27 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return Objects.equals(name, item.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
