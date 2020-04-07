@@ -1,5 +1,7 @@
-package ru.job4j.tracker.tasks.collections;
+package ru.job4j.tracker;
 import org.junit.Test;
+import ru.job4j.tracker.tasks.collections.Account;
+import ru.job4j.tracker.tasks.collections.NotifyAccount;
 
 import java.util.Arrays;
 import java.util.HashSet;

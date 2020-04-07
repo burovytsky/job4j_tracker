@@ -1,7 +1,9 @@
-package ru.job4j.tracker.tasks.search;
+package ru.job4j.tracker;
 
 import org.junit.Test;
 import org.w3c.dom.ls.LSOutput;
+import ru.job4j.tracker.tasks.search.PriorityQueue;
+import ru.job4j.tracker.tasks.search.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;

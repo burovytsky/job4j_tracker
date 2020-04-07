@@ -1,8 +1,10 @@
-package ru.job4j.tracker.tasks.collections;
+package ru.job4j.tracker;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.Test;
+import ru.job4j.tracker.tasks.collections.LexSort;
+
 import java.util.Arrays;
 
 public class LexSortTest {

@@ -1,6 +1,8 @@
-package ru.job4j.tracker.tasks.collections;
+package ru.job4j.tracker;
 
 import org.junit.Test;
+import ru.job4j.tracker.tasks.collections.Order;
+import ru.job4j.tracker.tasks.collections.OrderConvert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
