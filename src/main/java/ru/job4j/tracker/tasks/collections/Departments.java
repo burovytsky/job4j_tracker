@@ -1,13 +1,10 @@
 package ru.job4j.tracker.tasks.collections;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Departments {
     public static List<String> fillGaps(List<String> deps) {
-        HashSet<String> rsl = new HashSet<>();
+        TreeSet<String> rsl = new TreeSet<>();
         for (String value : deps) {
             StringBuilder start = new StringBuilder();
             for (String el : value.split("/")) {
@@ -23,6 +20,6 @@ public class Departments {
     }
 
     public static void sortDesc(List<String> orgs) {
-
+        orgs.sort(new DepDescComp());
     }
 }
