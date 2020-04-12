@@ -8,6 +8,24 @@ public class Address {
     private int home;
     private int apartment;
 
+    public Address(String city, int home) {
+        this.city = city;
+        this.home = home;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public int getHome() {
+        return home;
+    }
+
+    @Override
+    public String toString() {
+        return getCity() + " - " + getHome();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -22,18 +40,5 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(city, home);
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public int getHome() {
-        return home;
-    }
-
-    public Address(String city, int home) {
-        this.city = city;
-        this.home = home;
     }
 }
