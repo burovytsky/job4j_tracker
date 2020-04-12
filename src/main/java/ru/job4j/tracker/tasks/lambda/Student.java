@@ -4,13 +4,19 @@ import java.util.Objects;
 
 public class Student {
     private int score;
+    private String surname;
 
-    public Student(int score) {
+    public Student(String surname, int score) {
         this.score = score;
+        this.surname = surname;
     }
 
     public int getScore() {
         return score;
+    }
+
+    public String getSurname() {
+        return surname;
     }
 
     @Override
@@ -18,7 +24,7 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return score == student.score;
+        return score == student.score && surname.equals(student.surname);
     }
 
     @Override
@@ -28,6 +34,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Score is : " + getScore();
+        return getSurname() + " " + getScore();
     }
 }
