@@ -10,9 +10,26 @@ import java.util.Map;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 
 public class SchoolTest {
+
+    @Test
+    public void levelOfTest() {
+        List<Student> students = List.of(
+                new Student("Vasya", 50),
+                new Student("Petr", 90),
+                new Student("Julia", 30),
+                new Student("Dan", 100),
+                new Student("Juri", 10));
+        List<Student> expected = List.of(
+                new Student("Dan", 100),
+                new Student("Petr", 90));
+        List<Student> rsl = new School().levelOf(students, 50);
+        assertThat(rsl, is(expected));
+    }
+
     @Test
     public void whenConvertedListToMap() {
         List<Student> students = List.of(

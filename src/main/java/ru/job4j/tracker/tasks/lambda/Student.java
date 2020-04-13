@@ -2,7 +2,7 @@ package ru.job4j.tracker.tasks.lambda;
 
 import java.util.Objects;
 
-public class Student {
+public class Student implements Comparable<Student> {
     private int score;
     private String surname;
 
@@ -35,5 +35,16 @@ public class Student {
     @Override
     public String toString() {
         return getSurname() + " " + getScore();
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        if (this.getScore() == o.getScore()) {
+            return 0;
+        } else if (this.getScore() < o.getScore()) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
