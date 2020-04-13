@@ -26,13 +26,14 @@ public class JobComparatorTest {
     @Test
     public void whenComparatorAscByNameAndPriority() {
         Comparator<Job> cmpNamePriority = new JobAscByName().thenComparing(new JobAscByPriority());
-        List<Job> items = new ArrayList<>();
-        items.add(new Job("Do2", 2));
-        items.add(new Job("Do1", 5));
-        items.add(new Job("Do4", 6));
-        items.add(new Job("Do4", 3));
-        items.add(new Job("Do4", 1));
-        List<Job> itemsSorted = Arrays.asList(
+        List<Job> items = new ArrayList<>(List.of(
+                new Job("Do2", 2),
+                new Job("Do1", 5),
+                new Job("Do4", 6),
+                new Job("Do4", 3),
+                new Job("Do4", 1)
+        ));
+        List<Job> itemsSorted = List.of(
                 new Job("Do1", 5),
                 new Job("Do2", 2),
                 new Job("Do4", 1),
