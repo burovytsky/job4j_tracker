@@ -6,10 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Converter {
-    public static void main(String[] args) {
-        Integer[][] matrix = {{2, 4}, {5, 4}, {9, 3}, {8, 2}};
-
-        List<Integer> list = Stream.of(matrix).flatMap(Arrays::stream).collect(Collectors.toList());
-        System.out.println(list.toString());
+    public static List<Integer> convertMatrixToList(Integer[][] matrix) {
+        return Stream.of(matrix).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 }
