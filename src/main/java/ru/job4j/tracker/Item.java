@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.tasks.collections.Citizen;
-
 import java.util.Objects;
 
 public class Item {
