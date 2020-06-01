@@ -9,12 +9,12 @@ public class FindByNameAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store memTracker) {
         String name = input.askStr("Enter name: ");
-        List<Item> foundItems = tracker.findByName(name);
+        List<Item> foundItems = memTracker.findByName(name);
         if (foundItems.size() != 0) {
             for (Item item : foundItems) {
-                System.out.print(item.getName() + " : " + item.getId());
+                System.out.println(String.format("%s : %s", item.getName(), item.getId()));
             }
         } else {
             System.out.println("No matching items found");
