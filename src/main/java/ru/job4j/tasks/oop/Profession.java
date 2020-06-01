@@ -1,4 +1,4 @@
-package ru.job4j.tracker.tasks.oop.professions;
+package ru.job4j.tasks.oop;
 
 public class Profession {
     private String name;
