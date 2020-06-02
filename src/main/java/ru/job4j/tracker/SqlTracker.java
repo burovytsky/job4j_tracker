@@ -5,11 +5,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 public class SqlTracker implements Store {
     private Connection cn;
-    private PreparedStatement st;
 
     @Override
     public void init() {
@@ -30,11 +28,16 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try {
-            st = cn.prepareStatement("insert into item (id, name) values (?, ?)");
-            st.setString(1, generateId());
-            st.setString(2, item.getName());
+        try (PreparedStatement st =
+                     cn.prepareStatement("insert into item ( name) values (?)", PreparedStatement.RETURN_GENERATED_KEYS);
+             ResultSet rs = st.getGeneratedKeys()) {
+            st.setString(1, item.getName());
             st.executeUpdate();
+            if (rs != null && rs.next()) {
+                item.setId(String.valueOf(rs.getInt(1)));
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,10 +47,9 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(String id, Item item) {
         boolean rsl = false;
-        try {
-            st = cn.prepareStatement("update item set name = ? where item.id = ?");
+        try (PreparedStatement st = cn.prepareStatement("update item set name = ? where item.id = ?")) {
             st.setString(1, item.getName());
-            st.setString(2, id);
+            st.setInt(2, Integer.parseInt(id));
             if (st.executeUpdate() > 0) {
                 rsl = true;
             }
@@ -60,9 +62,8 @@ public class SqlTracker implements Store {
     @Override
     public boolean delete(String id) {
         boolean rsl = false;
-        try {
-            st = cn.prepareStatement("delete from item WHERE item.id = ?");
-            st.setString(1, id);
+        try (PreparedStatement st = cn.prepareStatement("delete from item WHERE item.id = ?")) {
+            st.setInt(1, Integer.parseInt(id));
             if (st.executeUpdate() > 0) {
                 rsl = true;
             }
@@ -75,9 +76,8 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> itemList = new ArrayList<>();
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select * from item");
+        try (Statement st = cn.createStatement();
+             ResultSet rs = st.executeQuery("select * from item")) {
             while (rs.next()) {
                 Item item = new Item(rs.getString("name"));
                 item.setId(rs.getString("id"));
@@ -92,14 +92,14 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> rsl = new ArrayList<>();
-        try {
-            st = cn.prepareStatement("select * from item WHERE item.name = ?");
+        try (PreparedStatement st = cn.prepareStatement("select * from item WHERE item.name = ?")) {
             st.setString(1, key);
-            ResultSet resultSet = st.executeQuery();
-            while (resultSet.next()) {
-                Item item = new Item(resultSet.getString("name"));
-                item.setId(resultSet.getString("id"));
-                rsl.add(item);
+            try (ResultSet resultSet = st.executeQuery()) {
+                while (resultSet.next()) {
+                    Item item = new Item(resultSet.getString("name"));
+                    item.setId(resultSet.getString("id"));
+                    rsl.add(item);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,13 +110,13 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(String id) {
         Item item = null;
-        try {
-            st = cn.prepareStatement("select * from item WHERE item.id = ?");
-            st.setString(1, id);
-            ResultSet resultSet = st.executeQuery();
-            while (resultSet.next()) {
-                item = new Item(resultSet.getString("name"));
-                item.setId(resultSet.getString("id"));
+        try (PreparedStatement st = cn.prepareStatement("select * from item WHERE item.id = ?")) {
+            st.setInt(1, Integer.parseInt(id));
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    item = new Item(rs.getString("name"));
+                    item.setId(rs.getString("id"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,16 +132,10 @@ public class SqlTracker implements Store {
     }
 
     private void createTable() {
-        try {
-            Statement st = cn.createStatement();
-            st.executeQuery("create table if not exists item (id varchar(100), name varchar(30));");
+        try (Statement st = cn.createStatement();) {
+            st.executeQuery("create table if not exists item (id serial primary key, name varchar(30));");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private String generateId() {
-        Random rm = new Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 }
