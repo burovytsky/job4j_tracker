@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class StartUITest {
 
-    @Test@Ignore
+    @Test
     public void whenPrtMenu() {
         List<UserAction> actions = new ArrayList<>();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -35,20 +35,20 @@ public class StartUITest {
         System.setOut(def);
     }
 
-    @Test@Ignore
+    @Test
     public void whenAddItem() {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
-        Store memTracker = new SqlTracker();
+        MemTracker memTracker = new MemTracker();
         new CreateAction().execute(input, memTracker);
         Item created = memTracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }
 
-    @Test@Ignore
+    @Test
     public void whenReplaceItem() {
-        Store memTracker = new SqlTracker();
+        MemTracker memTracker = new MemTracker();
         Item item = new Item("new item");
         memTracker.add(item);
         String[] answers = {item.getId(), "replaced item"};
@@ -57,9 +57,9 @@ public class StartUITest {
         assertThat(replaced.getName(), is("replaced item"));
     }
 
-    @Test@Ignore
+    @Test
     public void whenDeleteItem() {
-        Store memTracker = new SqlTracker();
+        MemTracker memTracker = new MemTracker();
         Item item = new Item("new item");
         memTracker.add(item);
         String[] answers = {item.getId()};

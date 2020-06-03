@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.is;
 
 public class ValidateInputTest {
 
-    @Test@Ignore
+    @Test
     public void whenInvalidInput() {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;

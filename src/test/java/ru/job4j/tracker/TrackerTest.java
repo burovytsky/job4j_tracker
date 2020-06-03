@@ -12,7 +12,7 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class TrackerTest {
-    @Test@Ignore
+    @Test
     public void whenExit() {
         List<UserAction> actions = new ArrayList<>();
         StubInput input = new StubInput(
@@ -24,7 +24,7 @@ public class TrackerTest {
         assertThat(action.isCall(), is(true));
     }
 
-    @Test@Ignore
+    @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         MemTracker memTracker = new MemTracker();
         Item item = new Item("test1");
@@ -33,7 +33,7 @@ public class TrackerTest {
         assertThat(result.getName(), is(item.getName()));
     }
 
-    @Test@Ignore
+    @Test
     public void whenFindAllNotNullItems() {
         MemTracker memTracker = new MemTracker();
         Item item = new Item("test1");
@@ -47,7 +47,7 @@ public class TrackerTest {
         assertThat(result, is(expected));
     }
 
-    @Test@Ignore
+    @Test
     public void findItemByIdTest() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("test1");
@@ -58,7 +58,7 @@ public class TrackerTest {
         assertThat(result, is(item2));
     }
 
-    @Test@Ignore
+    @Test
     public void findItemByNameTest() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("test1");
@@ -73,7 +73,7 @@ public class TrackerTest {
         assertThat(result, is(expected));
     }
 
-    @Test@Ignore
+    @Test
     public void whenReplace() {
         MemTracker memTracker = new MemTracker();
         Item bug = new Item("Bug");
@@ -84,7 +84,7 @@ public class TrackerTest {
         assertThat(memTracker.findById(id).getName(), is("Bug with description"));
     }
 
-    @Test@Ignore
+    @Test
     public void whenDelete() {
         MemTracker memTracker = new MemTracker();
         Item bug = new Item("Bug");
